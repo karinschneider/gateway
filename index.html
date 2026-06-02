@@ -1,0 +1,80 @@
+HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K.S. SYSTEM | ENTRY KEY</title>
+    <style>
+        body { 
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; 
+            -webkit-font-smoothing: antialiased;
+            background-color: #000000; color: #ffffff; margin: 0; padding: 0;
+            height: 100vh; width: 100vw;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .terminal-box { width: 100%; max-width: 450px; text-align: left; padding: 20px; }
+        .prompt { font-size: 11px; color: #666666; font-family: monospace; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 15px; }
+        .input-line { display: flex; align-items: center; border-bottom: 1px solid #ffffff; padding-bottom: 8px; margin-bottom: 20px; }
+        .input-line span { font-family: monospace; font-size: 14px; margin-right: 10px; color: #ffffff; user-select: none; }
+        input[type="password"] { background: none; border: none; color: #ffffff; font-family: "Helvetica Neue", sans-serif; font-size: 14px; width: 100%; outline: none; letter-spacing: 3px; }
+        .error-msg { color: #ff3333; font-size: 10px; font-family: monospace; margin-top: 15px; text-transform: uppercase; display: none; letter-spacing: 1px; }
+        
+        /* SECRET OUTPUT BOX */
+        .system-link-display {
+            display: none;
+            background: #111111;
+            border: 1px solid #333333;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 12px;
+            color: #00ff00; /* Terminal Green for success */
+            word-break: break-all;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="terminal-box">
+        <div class="prompt" id="status-display">ENTER_SYSTEM_PASSPHRASE // SECURE_NODE</div>
+        
+        <div class="input-line">
+            <span>></span>
+            <input type="password" id="gatekeeper" autofocus onkeydown="evaluateAccess(event)">
+        </div>
+
+        <div class="error-msg" id="error-log">ACCESS_DENIED // INVALID_CREDENTIALS</div>
+        
+        <div class="system-link-display" id="link-bucket"></div>
+    </div>
+
+    <script>
+        function evaluateAccess(event) {
+            if (event.key === 'Enter') {
+                const input = document.getElementById('gatekeeper').value;
+                const errorLog = document.getElementById('error-log');
+                const statusDisplay = document.getElementById('status-display');
+                const linkBucket = document.getElementById('link-bucket');
+
+                if (input === 'CHROMA2026') { 
+                    statusDisplay.innerText = "ACCESS_GRANTED // LIVE_NODE_UNLOCKED";
+                    errorLog.style.display = 'none';
+                    
+                    // Reveal the copy-paste line directly in the box
+                    linkBucket.style.display = 'block';
+                    linkBucket.innerHTML = `
+                        DEPENDENCY DIRECTORY FOUND.<br><br>
+                        COPY & PASTE THE FOLLOWING ADRESS TO ACCESS THE SYSTEM:<br><br>
+                        <span style="color: #ffffff; user-select: all; font-weight: bold;">https://karinschneider.github.io/footprint/sandbox.html</span>
+                    `;
+                } else {
+                    errorLog.style.display = 'block';
+                    linkBucket.style.display = 'none';
+                    document.getElementById('gatekeeper').value = '';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
